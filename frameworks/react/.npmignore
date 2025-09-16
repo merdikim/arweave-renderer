@@ -1,0 +1,6 @@
+src/
+public/
+*.config.*
+.env*
+.git*
+README.md
