@@ -256,14 +256,6 @@ const Video = ({ id, className }: TComponentProps) => {
 
   return (
     <VideoWrapper className={className}>
-      {/* Debug info */}
-      <div className="absolute top-2 left-2 bg-black/50 text-white text-xs p-2 rounded">
-        <div>Duration: {formatTime(duration)}</div>
-        <div>Current: {formatTime(currentTime)}</div>
-        <div>Progress: {progressPercent.toFixed(1)}%</div>
-        <div>Ready State: {videoRef.current?.readyState}</div>
-      </div>
-
       {/* Video Element */}
       <div
         className="relative group h-full min-w-[350px]"
