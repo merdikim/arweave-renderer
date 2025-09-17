@@ -413,7 +413,7 @@ const VideoWrapper = ({
   return (
     <div
       className={cn(
-        "relative min-h-[250px] min-w-[250px] max-w-4xl mx-auto flex items-center justify-center border text-black border-gray-200 rounded-sm dark:text-white dark:border-gray-900 overflow-hidden",  
+        "relative min-h-[250px] min-w-[250px] max-w-4xl mx-auto flex items-center justify-center border text-black border-gray-200 rounded-sm overflow-hidden",  
         className,
         //"h-auto" //force height auto to avoid video distortion
       )}

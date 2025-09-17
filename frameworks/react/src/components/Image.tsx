@@ -48,7 +48,7 @@ const ImageWrapper = ({
     <div
       className={cn(
         className,
-        "min-h-5 min-w-5 flex items-center justify-center border text-black border-gray-200 rounded-sm dark:text-white dark:border-gray-900 overflow-hidden",
+        "min-h-5 min-w-5 flex items-center justify-center border text-black border-gray-200 rounded-sm overflow-hidden",
       )}
     >
       {children}

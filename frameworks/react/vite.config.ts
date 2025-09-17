@@ -14,15 +14,14 @@ export default defineConfig({
       formats: ['es', 'cjs']
     },
     rollupOptions: {
-      external: ['react', 'react-dom'],
+      external: ['react', 'react-dom', '@tanstack/react-query'],
       output: {
         globals: {
           react: 'React',
-          'react-dom': 'ReactDOM'
+          'react-dom': 'ReactDOM',
+          "@tanstack/react-query": "ReactQuery",
         }
       }
-    },
-    sourcemap: true,
-    emptyOutDir: true
+    }
   }
 });

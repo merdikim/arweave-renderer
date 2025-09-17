@@ -14,6 +14,12 @@ This project provides a React-based framework for rendering content stored on [A
 npm install arweave-renderer-react
 ```
 
+In your project, you need to import styles as well. This is a required step 
+
+```jsx
+import 'arweave-renderer-react/styles';
+```
+
 ## Usage
 
 ```jsx
@@ -33,6 +39,13 @@ function App() {
 2. Create your feature branch (`git checkout -b feature/my-feature`)
 3. Commit your changes
 4. Open a pull request
+
+
+## Requirements
+
+React >= 18.0.0
+React DOM >= 18.0.0
+@tanstack/react-query >= 5.0.0 (for data fetching capabilities) 
 
 ## License
 
