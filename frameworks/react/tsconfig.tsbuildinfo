@@ -1,1 +1,1 @@
-{"root":["./src/index.ts","./src/types.ts","./src/vite-env.d.ts","./src/hooks/useimage.tsx","./src/hooks/usevideo.tsx","./src/lib/arweave.ts","./src/lib/wayfinder.ts","./src/utils/constants.ts","./src/utils/index.ts"],"version":"5.8.3"}
+{"root":["./src/index.ts","./src/types.ts","./src/vite-env.d.ts","./src/hooks/useimage.tsx","./src/hooks/usevideo.tsx","./src/lib/wayfinder.ts","./src/utils/constants.ts","./src/utils/index.ts"],"version":"5.8.3"}

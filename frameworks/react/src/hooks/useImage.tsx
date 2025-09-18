@@ -7,6 +7,7 @@ const useImage = (id: string | undefined) => {
   const { data, isLoading, isError, error } = useQuery({
     queryKey: ["image", id],
     queryFn: async () => {
+      console.log('here now')
       const result = await requestGraphQL(id || "");
       console.log(result)
       // const contentMimeType = arweaveData?.tags?.find(

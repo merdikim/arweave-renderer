@@ -1,18 +1,35 @@
 import { ARIO } from "@ar.io/sdk";
-import { NetworkGatewaysProvider, Wayfinder } from "@ar.io/wayfinder-core";
+import { createWayfinderClient, FastestPingRoutingStrategy, NetworkGatewaysProvider, PreferredWithFallbackRoutingStrategy } from "@ar.io/wayfinder-core";
 import { TArweaveData } from "../types";
 
-const wayfinder = new Wayfinder({
-  gatewaysProvider: new NetworkGatewaysProvider({
-    ario: ARIO.mainnet(),
-    sortBy: "operatorStake",
-    sortOrder: "desc",
-    limit: 10,
-  }),
+const gatewayProvider = new NetworkGatewaysProvider({
+  ario: ARIO.mainnet(),
+  sortBy: 'operatorStake',
+  limit: 5,
+  sortOrder:"desc"
+});
+
+const fastestPingStrategy = new FastestPingRoutingStrategy({
+  timeoutMs: 500,
+  gatewaysProvider: gatewayProvider,
+});
+
+
+const strategy = new PreferredWithFallbackRoutingStrategy({
+  preferredGateway: "https://arweave.net",
+  fallbackStrategy: fastestPingStrategy,
+});
+
+
+const wayfinder = createWayfinderClient({
+  ario:ARIO.mainnet(),
+  routingStrategy: strategy
+  
 });
 
 const requestGraphQL = async (id: string):Promise<TArweaveData> => {
-  console.log(id);
+  console.log(id)
+
   try {
     const response = await wayfinder.request("ar:///graphql", {
       method: "POST",
@@ -39,8 +56,6 @@ const requestGraphQL = async (id: string):Promise<TArweaveData> => {
     });
 
     const data = await response.json();
-    console.log(data)
-    console.log(data.data)
     if (!data) return {} as TArweaveData;
     const edges = data.transactions.edges;
     if (edges.length == 0) return {} as TArweaveData;
