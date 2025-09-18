@@ -1,37 +1,63 @@
-# Arweave Renderer - React Framework
+# Arweave Renderer React
 
-This project provides a React-based framework for rendering content stored on [Arweave](https://www.arweave.org/). It enables seamless integration of Arweave data into React applications.
+## Overview
+
+Arweave Renderer React is a set of react hooks that enable seamless integration of Arweave-stored content into React applications. It provides hooks to fetch data stored on Arweave.
 
 ## Features
 
-- Fetch and render Arweave transactions in React components
-- Easy-to-use hooks and utilities
-- Customizable rendering logic
+- Fetch and render Arweave transactions in React
+- Support for images and videos
+- Easy-to-use React hooks
+- TypeScript support
 
 ## Installation
 
 ```bash
-npm install arweave-renderer-react
-```
-
-In your project, you need to import styles as well. This is a required step 
-
-```jsx
-import 'arweave-renderer-react/styles';
+npm install @arweave-renderer-react
 ```
 
 ## Usage
 
+Image hook
+
 ```jsx
-import { Image, Video } from 'arweave-renderer-react';
+import { useImage } from '@arweave-renderer-react';
 
 function App() {
+  const {data, isImageLoading, isImageError, error} = useImage(arweave_id)
+
   return (
-    <Image id={"your_image_id"}/>
-    <Video id={"your_video_id"}/>
+    <div>
+      <div>Arweave Content</div>
+    </div>
   );
 }
 ```
+
+Video hook
+
+```jsx
+import { useVideo } from '@arweave-renderer-react';
+
+function App() {
+  const {data, isVideoLoading, isVideoError, error} = useVideo(arweave_id)
+
+  return (
+    <div>
+      <div>Arweave Content</div>
+    </div>
+  );
+}
+```
+
+## API
+
+Renders content from a given Arweave transaction.
+
+**Params:**
+- `arweave_id` (string): The Arweave transaction ID (Required)
+
 
 ## Contributing
 
@@ -39,13 +65,6 @@ function App() {
 2. Create your feature branch (`git checkout -b feature/my-feature`)
 3. Commit your changes
 4. Open a pull request
-
-
-## Requirements
-
-React >= 18.0.0
-React DOM >= 18.0.0
-@tanstack/react-query >= 5.0.0 (for data fetching capabilities) 
 
 ## License
 

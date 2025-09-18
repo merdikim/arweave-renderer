@@ -1,6 +1,4 @@
-import "./index.css";
-export { default as Image } from './components/Image'
-export { default as Video } from './components/Video'
-// export { default as useImage } from './hooks/useImage'
-// export { default as useVideo } from './hooks/useVideo'
-export * from './types'
+export { default as useImage } from "./hooks/useImage";
+export { default as useVideo } from "./hooks/useVideo";
+
+export * from "./types";
