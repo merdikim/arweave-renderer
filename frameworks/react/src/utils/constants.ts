@@ -2,7 +2,7 @@ export const contentCategories = {
   image: [
     "image/jpeg",
     "image/png",
-    ".image/gif",
+    "image/gif",
     "image/bmp",
     "image/svg+xml",
     "image/webp",
@@ -34,6 +34,10 @@ export const contentCategories = {
     "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
     "text/plain",
     "application/rtf",
+  ],
+  markdown: [
+    "text/markdown", // IANA official
+    "text/x-markdown", // older/legacy
   ],
   code: [
     "text/javascript",

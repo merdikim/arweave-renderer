@@ -1,13 +1,14 @@
 import { useQuery } from "@tanstack/react-query";
 import type { Tag } from "../types";
 import { getCategoryByMimeType } from "../utils";
-import { requestGraphQL } from "../lib/wayfinder";
+import { requestGraphQL, requestMarkdown } from "../lib/wayfinder";
 
-const useVideo = (id: string | undefined) => {
+const useImage = (id: string | undefined) => {
   const { data, isLoading, isError, error } = useQuery({
-    queryKey: ["video", id],
+    queryKey: ["markdown", id],
     queryFn: async () => {
       const result = await requestGraphQL(id || "");
+
       const contentMimeType = result?.tags?.find(
         (tag: Tag) => tag.name == "Content-Type",
       );
@@ -15,21 +16,28 @@ const useVideo = (id: string | undefined) => {
         contentMimeType?.value || "",
       );
 
-      if (contentCategory !== "video") {
-        console.log("Not a video", id);
-        throw new Error("Not a video");
+      if (contentCategory !== "markdown") {
+        console.log("Not markdown", id);
+        throw new Error("Not markdown");
       }
 
+      const text = await requestMarkdown(id || "");
+
       return {
-        url: result.url,
-        alt:
+        text,
+        name:
           result.tags.find((tag: Tag) => tag.name == "Name")?.value ||
-          "arweave video",
+          "markdown",
       };
     },
   });
 
-  return { data, isVideoLoading: isLoading, isVideoError: isError, error };
+  return {
+    data,
+    isMarkdownLoading: isLoading,
+    isMarkdownError: isError,
+    error,
+  };
 };
 
-export default useVideo;
+export default useImage;

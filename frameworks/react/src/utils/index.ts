@@ -14,3 +14,5 @@ export const getCategoryByMimeType = (mimeType: string): TContentCategory => {
 
   return "unknown";
 };
+
+export const isArweaveId = (addr: string) => /^[a-z0-9_-]{43}$/i.test(addr);

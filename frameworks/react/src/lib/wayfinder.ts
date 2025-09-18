@@ -1,35 +1,18 @@
-import { ARIO } from "@ar.io/sdk";
-import { createWayfinderClient, FastestPingRoutingStrategy, NetworkGatewaysProvider, PreferredWithFallbackRoutingStrategy } from "@ar.io/wayfinder-core";
+// import { ARIO } from "@ar.io/sdk";
+import {
+  createWayfinderClient,
+  StaticRoutingStrategy,
+} from "@ar.io/wayfinder-core";
 import { TArweaveData } from "../types";
-
-const gatewayProvider = new NetworkGatewaysProvider({
-  ario: ARIO.mainnet(),
-  sortBy: 'operatorStake',
-  limit: 5,
-  sortOrder:"desc"
-});
-
-const fastestPingStrategy = new FastestPingRoutingStrategy({
-  timeoutMs: 500,
-  gatewaysProvider: gatewayProvider,
-});
-
-
-const strategy = new PreferredWithFallbackRoutingStrategy({
-  preferredGateway: "https://arweave.net",
-  fallbackStrategy: fastestPingStrategy,
-});
-
+import { isArweaveId } from "../utils";
 
 const wayfinder = createWayfinderClient({
-  ario:ARIO.mainnet(),
-  routingStrategy: strategy
-  
+  routingStrategy: new StaticRoutingStrategy({
+    gateway: "https://arweave.net",
+  }),
 });
 
-const requestGraphQL = async (id: string):Promise<TArweaveData> => {
-  console.log(id)
-
+const gqlRequest = async (id: string) => {
   try {
     const response = await wayfinder.request("ar:///graphql", {
       method: "POST",
@@ -39,7 +22,7 @@ const requestGraphQL = async (id: string):Promise<TArweaveData> => {
       body: JSON.stringify({
         query: `
           query {
-            transactions(first:1, ids: ["xf958qhCNGfDme1FtoiD6DtMfDENDbtxZpjOM_1tsMM"]) {
+            transactions(first:1, ids: ["${id}"]) {
               edges {
                 node {
                   id
@@ -54,14 +37,29 @@ const requestGraphQL = async (id: string):Promise<TArweaveData> => {
         `,
       }),
     });
+    return response;
+  } catch (error) {
+    throw error;
+  }
+};
 
-    const data = await response.json();
+const requestGraphQL = async (id: string): Promise<TArweaveData> => {
+  if (!isArweaveId(id)) return {} as TArweaveData;
+  try {
+    const response = await gqlRequest(id);
+
+    const { data } = await response.json();
     if (!data) return {} as TArweaveData;
     const edges = data.transactions.edges;
     if (edges.length == 0) return {} as TArweaveData;
     const { node } = edges[0];
+
+    const url = await wayfinder.resolveUrl({
+      txId: id,
+    });
+
     return {
-      id: node.id,
+      url: url as unknown as string,
       tags: node.tags,
     };
   } catch (error) {
@@ -69,4 +67,14 @@ const requestGraphQL = async (id: string):Promise<TArweaveData> => {
   }
 };
 
-export { requestGraphQL };
+const requestMarkdown = async (id: string): Promise<string> => {
+  if (!isArweaveId(id)) return "";
+  try {
+    const response = await gqlRequest(id);
+    return await response.text();
+  } catch (error) {
+    throw error;
+  }
+};
+
+export { requestGraphQL, requestMarkdown };

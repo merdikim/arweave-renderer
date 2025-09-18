@@ -22,10 +22,10 @@ npm install @arweave-renderer-react
 Image hook
 
 ```jsx
-import { useImage } from '@arweave-renderer-react';
+import { useImage } from "@arweave-renderer-react";
 
 function App() {
-  const {data, isImageLoading, isImageError, error} = useImage(arweave_id)
+  const { data, isImageLoading, isImageError, error } = useImage(arweave_id);
 
   return (
     <div>
@@ -38,10 +38,10 @@ function App() {
 Video hook
 
 ```jsx
-import { useVideo } from '@arweave-renderer-react';
+import { useVideo } from "@arweave-renderer-react";
 
 function App() {
-  const {data, isVideoLoading, isVideoError, error} = useVideo(arweave_id)
+  const { data, isVideoLoading, isVideoError, error } = useVideo(arweave_id);
 
   return (
     <div>
@@ -56,8 +56,8 @@ function App() {
 Renders content from a given Arweave transaction.
 
 **Params:**
-- `arweave_id` (string): The Arweave transaction ID (Required)
 
+- `arweave_id` (string): The Arweave transaction ID (Required)
 
 ## Contributing
 

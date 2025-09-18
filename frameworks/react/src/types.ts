@@ -9,7 +9,7 @@ export type Tag = {
 };
 
 export type TArweaveData = {
-  id: string;
+  url: string;
   tags: Array<Tag>;
 };
 
@@ -19,4 +19,5 @@ export type TContentCategory =
   | "audio"
   | "document"
   | "code"
+  | "markdown"
   | "unknown";
