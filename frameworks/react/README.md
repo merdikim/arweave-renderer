@@ -29,7 +29,7 @@ function App() {
 
   return (
     <div>
-      <div>Arweave Content</div>
+      <div>display data here</div>
     </div>
   );
 }
@@ -45,7 +45,7 @@ function App() {
 
   return (
     <div>
-      <div>Arweave Content</div>
+      <div>display data here</div>
     </div>
   );
 }
