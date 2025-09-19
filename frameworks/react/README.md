@@ -146,11 +146,6 @@ const { video, isVideoLoading, isVideoError, error} = useVideo(id)
 - Extracts name the tags in metadata
 - Throws "Not a video" error if content type validation fails
 
-## Dependencies
-
-- `@tanstack/react-query`: this dependancy is required. Configure it in your project before using `arweave-renderer-react`
-
-
 ## Error Handling
 
 All hooks will throw errors in the following scenarios:
