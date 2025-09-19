@@ -13,22 +13,22 @@ This library provides React hooks for fetching arweave data(images, markdown, an
 
 ## Installation
 
-\```bash
+```bash
 # Install the required peer dependencies
 npm i arweave-renderer-react
-\``` 
+``` 
 
 
-\```bash
+```bash
 # Install the required peer dependencies
 npm install @tanstack/react-query
-\``` 
+``` 
 
 ## Setup
 
 Make sure to wrap your app with the React Query provider:
 
-\```typescript
+```typescript
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 
 const queryClient = new QueryClient()
@@ -40,7 +40,7 @@ function App() {
     </QueryClientProvider>
   )
 }
-\```
+```
 
 
 ## Hooks
@@ -49,30 +49,30 @@ function App() {
 
 Fetches and validates image content from Arweave.
 
-\```typescript
+```typescript
 const { image, isImageLoading, isImageError, error} = useImage(id)
-\```
+```
 
 **Parameters:**
 - `id` (string | undefined): The Arweave transaction ID of the image
 
 **Returns:**
-\```typescript
+```typescript
 {
   image: TImage | undefined,      // Image data with src and alt properties
   isImageLoading: boolean,        // Loading state
   isImageError: boolean,          // Error state
   error: Error | null             // Error object if request failed
 }
-\```
+```
 
 **TImage Type:**
-\```typescript
+```typescript
 {
   src: string,     // Image URL
   alt: string      // Alt text (from the tag or default "arweave image")
 }
-\```
+```
 
 **Behavior:**
 - Validates that the content is an image using MIME type
@@ -83,30 +83,30 @@ const { image, isImageLoading, isImageError, error} = useImage(id)
 
 Fetches and validates markdown content from Arweave.
 
-\```typescript
+```typescript
 const { markDown, isMarkDownLoading, isMarkDownError, error} = useMarkDown(id)
-\```
+```
 
 **Parameters:**
 - `id` (string | undefined): The Arweave transaction ID of the markdown content
 
 **Returns:**
-\```typescript
+```typescript
 {
   markDown: TMarkDown | undefined,    // Markdown data with text and name properties
   isMarkDownLoading: boolean,         // Loading state
   isMarkDownError: boolean,           // Error state
   error: Error | null                 // Error object if request failed
 }
-\```
+```
 
 **TMarkDown Type:**
-\```typescript
+```typescript
 {
   text: string,    // Raw markdown content
   name: string     // Content name (from the tag or default "markdown")
 }
-\```
+```
 
 **Behavior:**
 - Validates that the content is markdown using MIME type
@@ -118,30 +118,30 @@ const { markDown, isMarkDownLoading, isMarkDownError, error} = useMarkDown(id)
 
 Fetches and validates video content from Arweave.
 
-\```typescript
+```typescript
 const { video, isVideoLoading, isVideoError, error} = useVideo(id)
-\```
+```
 
 **Parameters:**
 - `id` (string | undefined): The Arweave transaction ID of the video
 
 **Returns:**
-\```typescript
+```typescript
 {
   video: TVideo | undefined,      // Video data with src and name properties
   isVideoLoading: boolean,        // Loading state
   isVideoError: boolean,          // Error state
   error: Error | null             // Error object if request failed
 }
-\```
+```
 
 **TVideo Type:**
-\```typescript
+```typescript
 {
   src: string,     // Video URL
   name: string     // Video name (from the tag or default "arweave video")
 }
-\```
+```
 
 **Behavior:**
 - Validates that the content is a video using MIME type
