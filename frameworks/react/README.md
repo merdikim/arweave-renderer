@@ -13,7 +13,6 @@ This library provides React hooks for fetching arweave data(images, markdown, an
 ## Installation
 
 ```bash
-# Install the required peer dependencies
 npm i arweave-renderer-react
 ``` 
 
