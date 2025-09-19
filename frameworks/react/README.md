@@ -1,4 +1,3 @@
-```markdown
 # Arweave Renderer React
 
 This library provides React hooks for fetching arweave data(images, markdown, and videos) using React Query. All hooks follow a similar pattern and integrate with Arweave through the wayfinder library.
@@ -161,4 +160,3 @@ All hooks will throw errors in the following scenarios:
 - Invalid or missing transaction IDs
 
 The React Query error boundary will catch these errors, and they can be handled through the returned `error` object and `isError` boolean.
-```
