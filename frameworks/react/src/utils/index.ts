@@ -1,5 +1,5 @@
-import type { TContentCategory } from "@/types";
-import { contentCategories } from "@/utils/constants";
+import type { TContentCategory } from "../types";
+import { contentCategories } from "./constants";
 
 export const getCategoryByMimeType = (mimeType: string): TContentCategory => {
   if (!mimeType || typeof mimeType !== "string") return "unknown";

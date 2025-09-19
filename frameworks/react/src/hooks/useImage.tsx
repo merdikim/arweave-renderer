@@ -1,7 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
-import type { Tag, TImage } from "@/types";
-import { getCategoryByMimeType } from "@/utils";
-import { requestMedia } from "@/lib/wayfinder";
+import type { Tag, TImage } from "../types";
+import { getCategoryByMimeType } from "../utils";
+import { requestMedia } from "../lib/wayfinder";
 
 const useImage = (id: string | undefined) => {
   const { data, isLoading, isError, error } = useQuery({

@@ -1,7 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
-import type { Tag, TMarkDown } from "@/types";
-import { getCategoryByMimeType } from "@/utils";
-import { requestMedia, requestMarkDown } from "@/lib/wayfinder";
+import type { Tag, TMarkDown } from "../types";
+import { getCategoryByMimeType } from "../utils";
+import { requestMedia, requestMarkDown } from "../lib/wayfinder";
 
 const useMarkDown = (id: string | undefined) => {
   const { data, isLoading, isError, error } = useQuery({

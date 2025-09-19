@@ -3,8 +3,8 @@ import {
   createWayfinderClient,
   StaticRoutingStrategy,
 } from "@ar.io/wayfinder-core";
-import { TMedia } from "@/types";
-import { isArweaveId } from "@/utils";
+import { TMedia } from "../types";
+import { isArweaveId } from "../utils";
 
 const wayfinder = createWayfinderClient({
   routingStrategy: new StaticRoutingStrategy({
