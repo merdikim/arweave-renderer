@@ -9,7 +9,39 @@ This library provides React hooks for fetching arweave data(images, markdown, an
 - **Type Safety**: Full TypeScript support with proper type definitions
 - **MIME Type Validation**: Content type validation to ensure the requested media matches the expected format
 - **Arweave Integration**: Fetches media from Arweave using the wayfinder library
-- **Consistent Error Handling**: Throws descriptive errors when content type doesn't match expectations
+- **Consistent Error Handling**: Throws descriptive errors when content type doesn't match expectations 
+
+## Installation
+
+\```bash
+# Install the required peer dependencies
+npm i arweave-renderer-react
+\``` 
+
+
+\```bash
+# Install the required peer dependencies
+npm install @tanstack/react-query
+\``` 
+
+## Setup
+
+Make sure to wrap your app with the React Query provider:
+
+\```typescript
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
+
+const queryClient = new QueryClient()
+
+function App() {
+  return (
+    <QueryClientProvider client={queryClient}>
+      {/* Your app components */}
+    </QueryClientProvider>
+  )
+}
+\```
+
 
 ## Hooks
 
@@ -18,7 +50,7 @@ This library provides React hooks for fetching arweave data(images, markdown, an
 Fetches and validates image content from Arweave.
 
 \```typescript
-const useImage = (id: string | undefined) => { ... }
+const { image, isImageLoading, isImageError, error} = useImage(id)
 \```
 
 **Parameters:**
@@ -38,13 +70,13 @@ const useImage = (id: string | undefined) => { ... }
 \```typescript
 {
   src: string,     // Image URL
-  alt: string      // Alt text (from "Name" tag or default "arweave image")
+  alt: string      // Alt text (from the tag or default "arweave image")
 }
 \```
 
 **Behavior:**
 - Validates that the content is an image using MIME type
-- Extracts alt text from the "Name" tag in metadata
+- Extracts alt text from the tags in metadata
 - Throws "Not an image" error if content type validation fails
 
 ### `useMarkDown`
@@ -52,7 +84,7 @@ const useImage = (id: string | undefined) => { ... }
 Fetches and validates markdown content from Arweave.
 
 \```typescript
-const useMarkDown = (id: string | undefined) => { ... }
+const { markDown, isMarkDownLoading, isMarkDownError, error} = useMarkDown(id)
 \```
 
 **Parameters:**
@@ -72,14 +104,14 @@ const useMarkDown = (id: string | undefined) => { ... }
 \```typescript
 {
   text: string,    // Raw markdown content
-  name: string     // Content name (from "Name" tag or default "markdown")
+  name: string     // Content name (from the tag or default "markdown")
 }
 \```
 
 **Behavior:**
 - Validates that the content is markdown using MIME type
-- Fetches the actual text content using `requestMarkDown`
-- Extracts name from the "Name" tag in metadata
+- Fetches the actual text content
+- Extracts name from the tags in metadata
 - Throws "Not markdown" error if content type validation fails
 
 ### `useVideo`
@@ -87,7 +119,7 @@ const useMarkDown = (id: string | undefined) => { ... }
 Fetches and validates video content from Arweave.
 
 \```typescript
-const useVideo = (id: string | undefined) => { ... }
+const { video, isVideoLoading, isVideoError, error} = useVideo(id)
 \```
 
 **Parameters:**
@@ -107,34 +139,19 @@ const useVideo = (id: string | undefined) => { ... }
 \```typescript
 {
   src: string,     // Video URL
-  name: string     // Video name (from "Name" tag or default "arweave video")
+  name: string     // Video name (from the tag or default "arweave video")
 }
 \```
 
 **Behavior:**
 - Validates that the content is a video using MIME type
-- Extracts name from the "Name" tag in metadata
+- Extracts name the tags in metadata
 - Throws "Not a video" error if content type validation fails
 
 ## Dependencies
 
-- `@tanstack/react-query`: For query management and caching
-- `../types`: Type definitions for `Tag`, `TImage`, `TMarkDown`, `TVideo`
-- `../utils`: Utility function `getCategoryByMimeType` for content type validation
-- `../lib/wayfinder`: Core functions `requestMedia` and `requestMarkDown` for Arweave interaction
+- `@tanstack/react-query`: this dependancy is required. Configure it in your project before using `arweave-renderer-react`
 
-## Usage Examples
-
-\```typescript
-// Fetch an image
-const { image, isImageLoading, isImageError } = useImage("transaction-id");
-
-// Fetch markdown content
-const { markDown, isMarkDownLoading, isMarkDownError } = useMarkDown("transaction-id");
-
-// Fetch a video
-const { video, isVideoLoading, isVideoError } = useVideo("transaction-id");
-\```
 
 ## Error Handling
 
