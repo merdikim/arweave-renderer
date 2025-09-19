@@ -1,13 +1,13 @@
 import { useQuery } from "@tanstack/react-query";
-import type { Tag } from "../types";
-import { getCategoryByMimeType } from "../utils";
-import { requestGraphQL, requestMarkdown } from "../lib/wayfinder";
+import type { Tag, TMarkDown } from "@/types";
+import { getCategoryByMimeType } from "@/utils";
+import { requestMedia, requestMarkDown } from "@/lib/wayfinder";
 
-const useImage = (id: string | undefined) => {
+const useMarkDown = (id: string | undefined) => {
   const { data, isLoading, isError, error } = useQuery({
     queryKey: ["markdown", id],
-    queryFn: async () => {
-      const result = await requestGraphQL(id || "");
+    queryFn: async (): Promise<TMarkDown> => {
+      const result = await requestMedia(id || "");
 
       const contentMimeType = result?.tags?.find(
         (tag: Tag) => tag.name == "Content-Type",
@@ -21,7 +21,7 @@ const useImage = (id: string | undefined) => {
         throw new Error("Not markdown");
       }
 
-      const text = await requestMarkdown(id || "");
+      const text = await requestMarkDown(id || "");
 
       return {
         text,
@@ -33,11 +33,11 @@ const useImage = (id: string | undefined) => {
   });
 
   return {
-    data,
-    isMarkdownLoading: isLoading,
-    isMarkdownError: isError,
+    markDown: data,
+    isMarkDownLoading: isLoading,
+    isMarkDownError: isError,
     error,
   };
 };
 
-export default useImage;
+export default useMarkDown;

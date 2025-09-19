@@ -3,8 +3,8 @@ import {
   createWayfinderClient,
   StaticRoutingStrategy,
 } from "@ar.io/wayfinder-core";
-import { TArweaveData } from "../types";
-import { isArweaveId } from "../utils";
+import { TMedia } from "@/types";
+import { isArweaveId } from "@/utils";
 
 const wayfinder = createWayfinderClient({
   routingStrategy: new StaticRoutingStrategy({
@@ -12,7 +12,7 @@ const wayfinder = createWayfinderClient({
   }),
 });
 
-const gqlRequest = async (id: string) => {
+const requestArweaveData = async (id: string) => {
   try {
     const response = await wayfinder.request("ar:///graphql", {
       method: "POST",
@@ -43,15 +43,15 @@ const gqlRequest = async (id: string) => {
   }
 };
 
-const requestGraphQL = async (id: string): Promise<TArweaveData> => {
-  if (!isArweaveId(id)) return {} as TArweaveData;
+const requestMedia = async (id: string): Promise<TMedia> => {
+  if (!isArweaveId(id)) return {} as TMedia;
   try {
-    const response = await gqlRequest(id);
+    const response = await requestArweaveData(id);
 
     const { data } = await response.json();
-    if (!data) return {} as TArweaveData;
+    if (!data) return {} as TMedia;
     const edges = data.transactions.edges;
-    if (edges.length == 0) return {} as TArweaveData;
+    if (edges.length == 0) return {} as TMedia;
     const { node } = edges[0];
 
     const url = await wayfinder.resolveUrl({
@@ -67,14 +67,14 @@ const requestGraphQL = async (id: string): Promise<TArweaveData> => {
   }
 };
 
-const requestMarkdown = async (id: string): Promise<string> => {
+const requestMarkDown = async (id: string): Promise<string> => {
   if (!isArweaveId(id)) return "";
   try {
-    const response = await gqlRequest(id);
+    const response = await requestArweaveData(id);
     return await response.text();
   } catch (error) {
     throw error;
   }
 };
 
-export { requestGraphQL, requestMarkdown };
+export { requestMedia, requestMarkDown };

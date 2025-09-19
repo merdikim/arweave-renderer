@@ -1,13 +1,13 @@
 import { useQuery } from "@tanstack/react-query";
-import type { Tag } from "../types";
-import { getCategoryByMimeType } from "../utils";
-import { requestGraphQL } from "../lib/wayfinder";
+import type { Tag, TImage } from "@/types";
+import { getCategoryByMimeType } from "@/utils";
+import { requestMedia } from "@/lib/wayfinder";
 
 const useImage = (id: string | undefined) => {
   const { data, isLoading, isError, error } = useQuery({
     queryKey: ["image", id],
-    queryFn: async () => {
-      const result = await requestGraphQL(id || "");
+    queryFn: async (): Promise<TImage> => {
+      const result = await requestMedia(id || "");
 
       const contentMimeType = result?.tags?.find(
         (tag: Tag) => tag.name == "Content-Type",
@@ -22,7 +22,7 @@ const useImage = (id: string | undefined) => {
       }
 
       return {
-        url: result.url,
+        src: result.url,
         alt:
           result.tags.find((tag: Tag) => tag.name == "Name")?.value ||
           "arweave image",
@@ -30,7 +30,12 @@ const useImage = (id: string | undefined) => {
     },
   });
 
-  return { data, isImageLoading: isLoading, isImageError: isError, error };
+  return {
+    image: data,
+    isImageLoading: isLoading,
+    isImageError: isError,
+    error,
+  };
 };
 
 export default useImage;

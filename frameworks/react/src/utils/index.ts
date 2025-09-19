@@ -1,13 +1,13 @@
-import type { TContentCategory } from "../types";
-import { contentCategories } from "./constants";
+import type { TContentCategory } from "@/types";
+import { contentCategories } from "@/utils/constants";
 
 export const getCategoryByMimeType = (mimeType: string): TContentCategory => {
   if (!mimeType || typeof mimeType !== "string") return "unknown";
 
-  const normalizedMime = mimeType.toLowerCase().trim();
+  const normalizedMimeType = mimeType.toLowerCase().trim();
 
   for (const [category, data] of Object.entries(contentCategories)) {
-    if (data.includes(normalizedMime)) {
+    if (data.includes(normalizedMimeType)) {
       return category as TContentCategory;
     }
   }

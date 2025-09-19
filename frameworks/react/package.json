@@ -1,6 +1,6 @@
 {
   "name": "arweave-renderer-react",
-  "version": "0.1.7",
+  "version": "0.1.8",
   "private": false,
   "type": "module",
   "license": "MIT",
@@ -39,7 +39,7 @@
     "preview": "vite preview",
     "build:types": "tsc --project tsconfig.json --declaration --emitDeclarationOnly --outDir dist",
     "build": "npm run format && tsc -b && vite build && npm run build:types",
-    "prepublishOnly": "npm run build && npm run build:types"
+    "prepublishOnly": "npm run build"
   },
   "dependencies": {
     "@ar.io/sdk": "^3.19.0",
